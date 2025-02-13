@@ -1,2 +1,2 @@
-#!/bin/bash
-echo $((WATER + STIR))
+#!/bin/sh
+echo $(( ${#WATER} + ${#STIR} )) | tr 0-9 a-j
