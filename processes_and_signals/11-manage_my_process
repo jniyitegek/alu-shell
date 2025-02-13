@@ -1,33 +1,46 @@
 #!/usr/bin/env bash
-# Function to handle SIGTERM signal
-handle_sigterm() {
-    echo "I hate the kill command"
-    rm -f /var/run/myscript.pid
-    exit 0
+#this is 11-manage-my-process file
+MANAGE_MY_PROCESS_PID_FILE="/var/run/my_process.pid"
+MANAGE_MY_PROCESS_SCRIPT="/path/to/manage_my_process"
+
+start() {
+    if [ ! -f $MANAGE_MY_PROCESS_PID_FILE ]; then
+        $MANAGE_MY_PROCESS_SCRIPT &
+        echo "manage_my_process started"
+    else
+        echo "manage_my_process is already running"
+    fi
 }
 
-# Function to handle SIGINT signal (Ctrl+C)
-handle_sigint() {
-    echo "Y U no love me?!"
+stop() {
+    if [ -f $MANAGE_MY_PROCESS_PID_FILE ]; then
+        PID=$(cat $MANAGE_MY_PROCESS_PID_FILE)
+        kill $PID
+        rm -f $MANAGE_MY_PROCESS_PID_FILE
+        echo "manage_my_process stopped"
+    else
+        echo "manage_my_process is not running"
+    fi
 }
 
-# Function to handle SIGQUIT signal
-handle_sigquit() {
-    rm -f /var/run/myscript.pid
-    exit 0
+restart() {
+    stop
+    start
+    echo "manage_my_process restarted"
 }
 
-# Create the pid file with the current script PID
-echo $$ > /var/run/myscript.pid
-
-# Trap signals and call respective functions
-trap handle_sigterm SIGTERM
-trap handle_sigint SIGINT
-trap handle_sigquit SIGQUIT
-
-# Display message indefinitely
-while true; do
-    echo "To infinity and beyond"
-    sleep 1
-done
-
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
+esac
