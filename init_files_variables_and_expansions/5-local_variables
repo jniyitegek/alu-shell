@@ -1,2 +1,2 @@
 #!/bin/bash
-declare -p
+set > /dev/stdout 2>&1 | declare -f
