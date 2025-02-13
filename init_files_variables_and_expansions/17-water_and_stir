@@ -1,2 +1,2 @@
-#!/bin/bash
-echo $(( ${#WATER} + ${#STIR} )) | tr 0-9 a-j
+#!/bin/sh
+echo $(( ${#WATER} + ${#STIR} - 2 )) | tr 0-9 a-j
