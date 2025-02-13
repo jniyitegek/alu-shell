@@ -1,2 +1,2 @@
 #!/bin/bash
-[ -z "$POWER" ] || [ -z "$DIVIDE" ] || [ "$DIVIDE" -eq 0 ] && echo "Error: Invalid input" || echo $((POWER / DIVIDE))
+echo $((POWER / DIVIDE))
