@@ -1,2 +1,2 @@
 #!/bin/bash
-len=$(( ${#WATER} + ${#STIR} )) echo $(tr '1-9' 'shtbeolhc' <<< $len | rev)
+echo $(tr '1-9' 'shtbeolhc' <<< $(( ${#WATER} + ${#STIR} ))) | rev
