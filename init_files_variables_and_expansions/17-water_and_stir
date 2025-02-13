@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(tr '0-9' 'a-j' <<< $(( ${#WATER} + ${#STIR} ))) | rev
+echo $(tr '1-9' 'a-i' <<< $(( ${#WATER} + ${#STIR} ))) | rev
