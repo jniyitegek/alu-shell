@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(( ${#WATER} + ${#STIR} - 2 )) | tr 0-9 a-j
+echo $(( ${#WATER} + ${#STIR} )) | awk '{ for(i=1;i<=NF;i++) printf("%c", $i+97) }' | rev
